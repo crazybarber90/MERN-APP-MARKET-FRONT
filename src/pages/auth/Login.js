@@ -1,62 +1,64 @@
-import React, { useState } from "react";
-import styles from "./Auth.module.scss";
-import { BiLogIn } from "react-icons/bi";
-import Card from "../../components/card/Card";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { LoginUser, validateEmail } from "../../services/authService";
-import { SET_LOGIN, SET_NAME } from "../../redux/features/auth/authSlice";
-import Loader from "../../components/loader/Loader";
+import React, { useState } from 'react'
+import styles from './Auth.module.scss'
+import { BiLogIn } from 'react-icons/bi'
+import Card from '../../components/card/Card'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { LoginUser, validateEmail } from '../../services/authService'
+import { SET_LOGIN, SET_NAME } from '../../redux/features/auth/authSlice'
+import Loader from '../../components/loader/Loader'
 
+// Init local state
 const initialState = {
-  email: "",
-  password: "",
-};
+  email: '',
+  password: '',
+}
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState(initialState);
-  const { email, password } = formData;
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState(initialState)
+  const { email, password } = formData
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   const login = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!email || !password) {
-      return toast.error("All fields are required");
+      return toast.error('All fields are required')
     }
     if (!validateEmail(email)) {
-      return toast.error("Please enter a valid email");
+      return toast.error('Please enter a valid email')
     }
     if (password.length < 6) {
-      return toast.error("Password must be up to 6 characters");
+      return toast.error('Password must be up to 6 characters')
     }
 
     const userData = {
       email,
       password,
-    };
-
-    setIsLoading(true);
-    try {
-      const data = await LoginUser(userData);
-      console.log("DATA", data);
-      await dispatch(SET_LOGIN(true));
-      await dispatch(SET_NAME(data.name));
-      navigate("/dashboard");
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.error(error.message);
     }
-  };
+
+    setIsLoading(true)
+
+    try {
+      const data = await LoginUser(userData)
+      console.log('DATA', data)
+      await dispatch(SET_LOGIN(true))
+      await dispatch(SET_NAME(data.name))
+      navigate('/dashboard')
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.error(error.message)
+    }
+  }
   return (
     <div className={`container ${styles.auth}`}>
       {isLoading && <Loader />}
@@ -97,7 +99,7 @@ const Login = () => {
         </div>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
