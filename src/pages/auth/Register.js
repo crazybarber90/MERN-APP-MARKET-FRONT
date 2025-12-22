@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './Auth.module.scss'
 import { TiUserAddOutline } from 'react-icons/ti'
 import Card from '../../components/card/Card'

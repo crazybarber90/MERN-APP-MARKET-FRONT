@@ -1,12 +1,8 @@
-import React from "react";
-import { RiProductHuntLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import "./Home.scss";
-import heroImg from "../../asets/inv-img.png";
-import {
-  ShowOnLogin,
-  ShowOnLogout,
-} from "../../components/protect/HiddenLinks";
+import { RiProductHuntLine } from 'react-icons/ri'
+import { Link } from 'react-router-dom'
+import './Home.scss'
+import heroImg from '../../asets/inv-img.png'
+import { ShowOnLogin, ShowOnLogout } from '../../components/protect/HiddenLinks'
 
 const Home = () => {
   return (
@@ -41,7 +37,7 @@ const Home = () => {
       {/* HERO SECTION */}
       <section className="container hero">
         <div className="hero-text">
-          <h2>Inventory {"&"} Stock Management Solution</h2>
+          <h2>Inventory {'&'} Stock Management Solution</h2>
           <p>
             Inventory system to control and manage proucts in the warehouse in
             real timeand integrated to make it easier to develop your business.
@@ -62,8 +58,8 @@ const Home = () => {
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
 const NumberText = ({ num, text }) => {
   return (
@@ -71,6 +67,6 @@ const NumberText = ({ num, text }) => {
       <h3 className="--color-white">{num}</h3>
       <p className="--color-white">{text}</p>
     </div>
-  );
-};
-export default Home;
+  )
+}
+export default Home

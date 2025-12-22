@@ -1,19 +1,18 @@
-import React from "react";
-import { LogoutUser } from "../../services/authService";
-import { useDispatch, useSelector } from "react-redux";
-import { selectName, SET_LOGIN } from "../../redux/features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { LogoutUser } from '../../services/authService'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectName, SET_LOGIN } from '../../redux/features/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const name = useSelector(selectName);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const name = useSelector(selectName)
 
   const logout = async () => {
-    await LogoutUser();
-    dispatch(SET_LOGIN(false));
-    navigate("/login");
-  };
+    await LogoutUser()
+    dispatch(SET_LOGIN(false))
+    navigate('/login')
+  }
 
   return (
     <div className="--pad header">
@@ -28,7 +27,7 @@ const Header = () => {
       </div>
       <hr />
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

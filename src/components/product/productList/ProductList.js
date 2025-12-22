@@ -1,86 +1,86 @@
-import React, { useEffect, useState } from "react";
-import "./productList.scss";
-import { SpinnerImg } from "../../loader/Loader";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { AiOutlineEye } from "react-icons/ai";
-import Search from "../../search/Search";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react'
+import './productList.scss'
+import { SpinnerImg } from '../../loader/Loader'
+import { FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { AiOutlineEye } from 'react-icons/ai'
+import Search from '../../search/Search'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   FILTER_PRODUCTS,
   selectFilteredPoducts,
-} from "../../../redux/features/product/filterSlice";
-import ReactPaginate from "react-paginate";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+} from '../../../redux/features/product/filterSlice'
+import ReactPaginate from 'react-paginate'
+import { confirmAlert } from 'react-confirm-alert' // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import {
   deleteProduct,
   getProducts,
-} from "../../../redux/features/product/productSlice";
-import { Link } from "react-router-dom";
+} from '../../../redux/features/product/productSlice'
+import { Link } from 'react-router-dom'
 
 const ProductList = ({ products, isLoading }) => {
-  const [search, setSearch] = useState("");
-  const filteredProducts = useSelector(selectFilteredPoducts);
+  const [search, setSearch] = useState('')
+  const filteredProducts = useSelector(selectFilteredPoducts)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   // BEGIN PAGINATION-------------------------------------
 
-  const [currentItems, setCurrentItems] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 5;
+  const [currentItems, setCurrentItems] = useState([])
+  const [pageCount, setPageCount] = useState(0)
+  const [itemOffset, setItemOffset] = useState(0)
+  const itemsPerPage = 5
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
+    const endOffset = itemOffset + itemsPerPage
 
     //Added filteredProducts to all places instead initial "items" from docs
 
-    setCurrentItems(filteredProducts.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(filteredProducts.length / itemsPerPage));
-  }, [itemOffset, itemsPerPage, filteredProducts]);
+    setCurrentItems(filteredProducts.slice(itemOffset, endOffset))
+    setPageCount(Math.ceil(filteredProducts.length / itemsPerPage))
+  }, [itemOffset, itemsPerPage, filteredProducts])
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % filteredProducts.length;
-    setItemOffset(newOffset);
-  };
+    const newOffset = (event.selected * itemsPerPage) % filteredProducts.length
+    setItemOffset(newOffset)
+  }
 
   // END PAGINATION-------------------------------------
 
   useEffect(() => {
-    dispatch(FILTER_PRODUCTS({ products, search }));
-  }, [products, search, dispatch]);
+    dispatch(FILTER_PRODUCTS({ products, search }))
+  }, [products, search, dispatch])
 
   const shortenText = (text, n) => {
     if (text.length > n) {
-      const shortendText = text.substring(0, n).concat("...");
-      return shortendText;
+      const shortendText = text.substring(0, n).concat('...')
+      return shortendText
     }
-    return text;
-  };
+    return text
+  }
 
   const delProduct = async (id) => {
-    console.log("ID", id);
-    await dispatch(deleteProduct(id));
-    await dispatch(getProducts());
-  };
+    console.log('ID', id)
+    await dispatch(deleteProduct(id))
+    await dispatch(getProducts())
+  }
 
   const confirmDelete = (id) => {
     confirmAlert({
-      title: "Delete Product",
-      message: "Are you sure You want to delete product",
+      title: 'Delete Product',
+      message: 'Are you sure You want to delete product',
       buttons: [
         {
-          label: "Delete",
+          label: 'Delete',
           onClick: () => delProduct(id),
         },
         {
-          label: "Cancel",
+          label: 'Cancel',
           // onClick: () => alert("Click No"),
         },
       ],
-    });
-  };
+    })
+  }
 
   return (
     <div className="product-list">
@@ -119,43 +119,43 @@ const ProductList = ({ products, isLoading }) => {
               <tbody>
                 {/* now it map through currentItems cos of pagination */}
                 {currentItems.map((product, index) => {
-                  const { _id, name, category, price, quantity } = product;
+                  const { _id, name, category, price, quantity } = product
                   return (
                     <tr key={_id}>
                       <td>{index + 1}</td>
                       <td>{shortenText(name, 16)}</td>
                       <td>{category}</td>
                       <td>
-                        {"$"}
+                        {'$'}
                         {price}
                       </td>
                       <td>{quantity}</td>
                       <td>
-                        {" "}
-                        {"$"}
+                        {' '}
+                        {'$'}
                         {price * quantity}
                       </td>
                       <td className="icons">
                         <span>
                           <Link to={`/product-detail/${_id}`}>
-                            <AiOutlineEye size={23} color={"purple"} />
+                            <AiOutlineEye size={23} color={'purple'} />
                           </Link>
                         </span>
                         <span>
                           <Link to={`/edit-product/${_id}`}>
-                            <FaEdit size={20} color={"green"} />
+                            <FaEdit size={20} color={'green'} />
                           </Link>
                         </span>
                         <span>
                           <FaTrashAlt
                             size={18}
-                            color={"red"}
+                            color={'red'}
                             onClick={() => confirmDelete(_id)}
                           />
                         </span>
                       </td>
                     </tr>
-                  );
+                  )
                 })}
               </tbody>
             </table>
@@ -178,7 +178,7 @@ const ProductList = ({ products, isLoading }) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProductList;
+export default ProductList

@@ -1,30 +1,30 @@
-import React, { useState } from "react";
-import styles from "./Auth.module.scss";
-import { AiOutlineMail } from "react-icons/ai";
-import Card from "../../components/card/Card";
-import { Link } from "react-router-dom";
-import { forgotPassword, validateEmail } from "../../services/authService";
-import { toast } from "react-toastify";
+import { useState } from 'react'
+import styles from './Auth.module.scss'
+import { AiOutlineMail } from 'react-icons/ai'
+import Card from '../../components/card/Card'
+import { Link } from 'react-router-dom'
+import { forgotPassword, validateEmail } from '../../services/authService'
+import { toast } from 'react-toastify'
 
 const Forgot = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('')
 
   const forgot = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!email) {
-      return toast.error("Please add your e-mail");
+      return toast.error('Please add your e-mail')
     }
     if (!validateEmail(email)) {
-      return toast.error("Please enter a valid email");
+      return toast.error('Please enter a valid email')
     }
 
     const userData = {
       email,
-    };
+    }
 
-    await forgotPassword(userData);
-    setEmail("");
-  };
+    await forgotPassword(userData)
+    setEmail('')
+  }
 
   return (
     <div className={`container ${styles.auth}`}>
@@ -59,7 +59,7 @@ const Forgot = () => {
         </div>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Forgot;
+export default Forgot

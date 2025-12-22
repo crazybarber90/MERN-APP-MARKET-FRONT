@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './Auth.module.scss'
 import { BiLogIn } from 'react-icons/bi'
 import Card from '../../components/card/Card'

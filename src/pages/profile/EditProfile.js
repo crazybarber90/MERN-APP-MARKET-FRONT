@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Card from '../../components/card/Card'
@@ -91,7 +91,6 @@ const EditProfile = () => {
     }
   }
 
-  useEffect(() => {}, [profileImage])
   return (
     <div className="profile --my2">
       {isLoading && <Loader />}

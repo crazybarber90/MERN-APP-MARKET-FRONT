@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { useState } from 'react'
+import { MdKeyboardArrowRight } from 'react-icons/md'
+import { NavLink } from 'react-router-dom'
 
-const activeLink = ({ isActive }) => (isActive ? "active" : "link");
-const activeSublink = ({ isActive }) => (isActive ? "active" : "link");
+const activeLink = ({ isActive }) => (isActive ? 'active' : 'link')
+const activeSublink = ({ isActive }) => (isActive ? 'active' : 'link')
 
 const SidebarItem = ({ item, isOpen }) => {
-  const [expandMenu, setExpandMenu] = useState(false);
+  const [expandMenu, setExpandMenu] = useState(false)
 
   if (item.childrens) {
     return (
       <div
         className={
-          expandMenu ? "sidebar-item s-parent open" : "sidebar-item s-parent"
+          expandMenu ? 'sidebar-item s-parent open' : 'sidebar-item s-parent'
         }
       >
         <div className="sidebar-title">
@@ -41,11 +41,11 @@ const SidebarItem = ({ item, isOpen }) => {
                   </div>
                 </NavLink>
               </div>
-            );
+            )
           })}
         </div>
       </div>
-    );
+    )
   } else {
     return (
       <NavLink to={item.path} className={activeLink}>
@@ -58,8 +58,8 @@ const SidebarItem = ({ item, isOpen }) => {
           </div>
         </div>
       </NavLink>
-    );
+    )
   }
-};
+}
 
-export default SidebarItem;
+export default SidebarItem

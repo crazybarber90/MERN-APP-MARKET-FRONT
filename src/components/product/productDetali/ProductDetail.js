@@ -1,43 +1,42 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import useRedirectLoggedOutUser from "../../../customHook/useRedirectLoggedOutUser";
-import { selectIsLoggedIn } from "../../../redux/features/auth/authSlice";
-import { getProduct } from "../../../redux/features/product/productSlice";
-import Card from "../../card/Card";
-import { SpinnerImg } from "../../loader/Loader";
-import "./ProductDetail.scss";
-import DOMPurify from "dompurify";
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import useRedirectLoggedOutUser from '../../../customHook/useRedirectLoggedOutUser'
+import { selectIsLoggedIn } from '../../../redux/features/auth/authSlice'
+import { getProduct } from '../../../redux/features/product/productSlice'
+import Card from '../../card/Card'
+import { SpinnerImg } from '../../loader/Loader'
+import './ProductDetail.scss'
+import DOMPurify from 'dompurify'
 
-const ProductDetail = ({}) => {
-  useRedirectLoggedOutUser("/login");
-  const dispatch = useDispatch();
+const ProductDetail = () => {
+  useRedirectLoggedOutUser('/login')
+  const dispatch = useDispatch()
 
   // DESTRUCTURE ID THAT WE SEND THROUGH URL FROM EYE TO VIEW PRODUCT
-  const { id } = useParams();
+  const { id } = useParams()
 
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isLoggedIn = useSelector(selectIsLoggedIn)
   const { product, isLoading, isError, message } = useSelector(
     (state) => state.product
-  );
+  )
 
   const stockStatus = (quantity) => {
     if (quantity > 0) {
-      return <span className="--color-success">In Stock</span>;
+      return <span className="--color-success">In Stock</span>
     }
-    return <span className="--color-danger">Out Of Stock</span>;
-  };
+    return <span className="--color-danger">Out Of Stock</span>
+  }
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      dispatch(getProduct(id));
-      console.log("PRODUCT", product);
+      dispatch(getProduct(id))
     }
 
     if (isError) {
-      console.log(message);
+      console.log(message)
     }
-  }, [isLoggedIn, isError, message, dispatch]);
+  }, [isLoggedIn, id, isError, message, dispatch])
 
   return (
     <div className="product-detail">
@@ -68,14 +67,14 @@ const ProductDetail = ({}) => {
               <b>&rarr; Category :</b> {product.category}
             </p>
             <p>
-              <b>&rarr; Price :</b> {"$"}
+              <b>&rarr; Price :</b> {'$'}
               {product.price}
             </p>
             <p>
               <b>&rarr; Quantity in stock :</b> {product.quantity}
             </p>
             <p>
-              <b>&rarr; Total value in stock:</b> {"$"}
+              <b>&rarr; Total value in stock:</b> {'$'}
               {product.price * product.quantity}
             </p>
             <hr />
@@ -89,17 +88,17 @@ const ProductDetail = ({}) => {
             ></div>
             <hr />
             <code className="--color-dark">
-              Created On: {product.createdAt.toLocaleString("en-US")}
+              Created On: {product.createdAt.toLocaleString('en-US')}
             </code>
             <br />
             <code className="--color-dark">
-              Last Updated: {product.updatedAt.toLocaleString("en-US")}
+              Last Updated: {product.updatedAt.toLocaleString('en-US')}
             </code>
           </div>
         )}
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default ProductDetail;
+export default ProductDetail

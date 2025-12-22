@@ -1,51 +1,51 @@
-import React, { useState } from "react";
-import styles from "./Auth.module.scss";
-import { MdPassword } from "react-icons/md";
-import Card from "../../components/card/Card";
-import { Link, useParams, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { resetPassword } from "../../services/authService";
+import { useState } from 'react'
+import styles from './Auth.module.scss'
+import { MdPassword } from 'react-icons/md'
+import Card from '../../components/card/Card'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { resetPassword } from '../../services/authService'
 
 const initialState = {
-  password: "",
-  password2: "",
-};
+  password: '',
+  password2: '',
+}
 
 const Reset = () => {
-  const [formData, setFormData] = useState(initialState);
-  const { password, password2 } = formData;
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState(initialState)
+  const { password, password2 } = formData
+  const navigate = useNavigate()
 
-  const { resetToken } = useParams();
+  const { resetToken } = useParams()
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   const reset = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (password.length < 6) {
-      return toast.error("Password must be up to 6 characters");
+      return toast.error('Password must be up to 6 characters')
     }
     if (password !== password2) {
-      return toast.error("Password do not match");
+      return toast.error('Password do not match')
     }
 
     const userData = {
       password,
       password2,
-    };
+    }
 
     try {
-      const data = await resetPassword(userData, resetToken);
-      toast.success(data.message);
-      navigate("/login");
+      const data = await resetPassword(userData, resetToken)
+      toast.success(data.message)
+      navigate('/login')
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message)
     }
-  };
+  }
 
   return (
     <div className={`container ${styles.auth}`}>
@@ -88,7 +88,7 @@ const Reset = () => {
         </div>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default Reset;
+export default Reset

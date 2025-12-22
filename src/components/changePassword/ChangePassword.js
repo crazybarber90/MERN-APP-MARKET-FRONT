@@ -1,44 +1,44 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import { changePassword } from "../../services/authService";
-import Card from "../card/Card";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { toast } from 'react-toastify'
+import { changePassword } from '../../services/authService'
+import Card from '../card/Card'
+import { useNavigate } from 'react-router-dom'
 
 const initialState = {
-  oldPassword: "",
-  password: "",
-  password2: "",
-};
+  oldPassword: '',
+  password: '',
+  password2: '',
+}
 
 const ChangePassword = () => {
-  const [formData, setFormData] = useState(initialState);
-  const { oldPassword, password, password2 } = formData;
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState(initialState)
+  const { oldPassword, password, password2 } = formData
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   const changePass = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (password !== password2) {
-      return toast.error("New password do not match");
+      return toast.error('New password do not match')
     }
 
     const formData = {
       oldPassword,
       password,
-    };
+    }
 
-    const data = await changePassword(formData);
-    toast.success(data);
-    navigate("/profile");
-  };
+    const data = await changePassword(formData)
+    toast.success(data)
+    navigate('/profile')
+  }
 
   return (
     <div className="change-password">
-      <Card cardClass={"password-card"}>
+      <Card cardClass={'password-card'}>
         <h3>Change Password</h3>
         <form className="--form-control" onSubmit={changePass}>
           <input
@@ -72,7 +72,7 @@ const ChangePassword = () => {
         </form>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default ChangePassword;
+export default ChangePassword

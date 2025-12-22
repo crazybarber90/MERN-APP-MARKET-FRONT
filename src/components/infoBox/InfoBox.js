@@ -1,5 +1,4 @@
-import React from "react";
-import "./InfoBox.scss";
+import './InfoBox.scss'
 
 const InfoBox = ({ bgColor, title, count, icon }) => {
   return (
@@ -10,7 +9,7 @@ const InfoBox = ({ bgColor, title, count, icon }) => {
         <h4>{count}</h4>
       </span>
     </div>
-  );
-};
+  )
+}
 
-export default InfoBox;
+export default InfoBox

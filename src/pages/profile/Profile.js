@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
-import "./Profile.scss";
-import useRedirectLoggedOutUser from "../../customHook/useRedirectLoggedOutUser";
-import { useDispatch } from "react-redux";
-import { getUser } from "../../services/authService";
-import { SET_USER, SET_NAME } from "../../redux/features/auth/authSlice";
-import { SpinnerImg } from "../../components/loader/Loader";
-import Card from "../../components/card/Card";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import './Profile.scss'
+import useRedirectLoggedOutUser from '../../customHook/useRedirectLoggedOutUser'
+import { useDispatch } from 'react-redux'
+import { getUser } from '../../services/authService'
+import { SET_USER, SET_NAME } from '../../redux/features/auth/authSlice'
+import { SpinnerImg } from '../../components/loader/Loader'
+import Card from '../../components/card/Card'
+import { Link } from 'react-router-dom'
 
 const Profile = () => {
-  useRedirectLoggedOutUser("/login");
-  const dispatch = useDispatch();
+  useRedirectLoggedOutUser('/login')
+  const dispatch = useDispatch()
 
-  const [profile, setProfile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [profile, setProfile] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(true)
     async function getUserData() {
-      const data = await getUser();
+      const data = await getUser()
       //   console.log("DATAAA", data);
 
-      setProfile(data);
-      setIsLoading(false);
-      await dispatch(SET_USER(data));
-      await dispatch(SET_NAME(data.name));
+      setProfile(data)
+      setIsLoading(false)
+      await dispatch(SET_USER(data))
+      await dispatch(SET_NAME(data.name))
     }
 
-    getUserData();
-  }, [dispatch]);
+    getUserData()
+  }, [dispatch])
 
   return (
     <div className="profile --my2">
@@ -37,7 +37,7 @@ const Profile = () => {
         {!isLoading && profile === null ? (
           <p>Something went wrong, please reload page</p>
         ) : (
-          <Card cardClass={"card --flex-dir-column"}>
+          <Card cardClass={'card --flex-dir-column'}>
             <span className="pfofile-photo">
               <img src={profile?.photo} alt="profilepic" />
             </span>
@@ -64,7 +64,7 @@ const Profile = () => {
         )}
       </>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
