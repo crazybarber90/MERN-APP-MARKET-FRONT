@@ -5,6 +5,7 @@ const API_URL = `${BACKEND_URL}/api/products/`
 
 axios.defaults.withCredentials = true
 
+console.log('BACKEND =', BACKEND_URL)
 console.log('BACKEND_URL =', process.env.REACT_APP_BACKEND_URL)
 console.log('API_URL =', API_URL)
 
