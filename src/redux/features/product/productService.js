@@ -34,9 +34,6 @@ const deleteProduct = async (id) => {
 // GET A PRODUCT
 const getProduct = async (id) => {
   const response = await axios.get(API_URL + id)
-  if (!Array.isArray(response.data)) {
-    return []
-  }
   return response.data
 }
 
