@@ -88,11 +88,17 @@ const ProductDetail = () => {
             ></div>
             <hr />
             <code className="--color-dark">
-              Created On: {product.createdAt.toLocaleString('en-US')}
+              Created On:{' '}
+              {product.createdAt
+                ? new Date(product.createdAt).toLocaleString('en-US')
+                : '-'}
             </code>
             <br />
             <code className="--color-dark">
-              Last Updated: {product.updatedAt.toLocaleString('en-US')}
+              Last Updated:{' '}
+              {product.updatedAt
+                ? new Date(product.updatedAt).toLocaleString('en-US')
+                : '-'}
             </code>
           </div>
         )}
